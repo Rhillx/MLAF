@@ -7,6 +7,9 @@
   "main": "main.js",
   "dependencies": {
     "expo": "17.0.0",
+    "firebase": "^4.1.2",
+    "native-base": "^2.1.5",
+    "re-base": "^3.0.1",
     "react": "16.0.0-alpha.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-17.0.0.tar.gz"
   }

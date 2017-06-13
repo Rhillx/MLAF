@@ -1,0 +1,18 @@
+{
+  "foundItem": {
+    "itemId": {
+      "lat": 0,
+      "lng": 0,
+      "description": "",
+      "image": "",
+      "user": "userId"
+    }
+  },
+  "users": {
+    "id": {
+      "username": "",
+      "email": "",
+      "user": "userId"
+    }
+  }
+}
