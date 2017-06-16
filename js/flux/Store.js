@@ -1,5 +1,7 @@
 export const Store = {
     foundItems: {},
     lostItems:{},
-    users: {}
+    users: {},
+    currentView: 1,
+    currentUser: null,
 }

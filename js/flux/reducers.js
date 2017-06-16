@@ -1,5 +1,5 @@
 import {_loginWithGoogle} from '../utils/firebase';
-import {signInWithGoogleAsync, facebookLogIn} from '../googleAuth'
+import {signInWithGoogleAsync, facebookLogIn} from '../auth'
 
 export function createNewUser(name, email) {
   const newUserRef = db.ref('users').push();
@@ -15,10 +15,28 @@ export function createNewUser(name, email) {
   })
 }
 
-export function loginWithGoogle(oldStore){
-   signInWithGoogleAsync()
 
-    return Promise.resolve().then(_ => oldStore);
+
+export function changeViewFunction(oldStore, options){
+  console.log(options)
+      return Promise.resolve().then(_ => {
+         return Object.assign({}, oldStore, {
+            currentView: options.viewNum,
+          })
+      })
+};
+
+
+
+export function loginWithGoogle(oldStore){
+   return signInWithGoogleAsync().then((result) => {
+     console.log(result.user.email)
+      return Object.assign({}, oldStore, {
+        currentUser: "New SHIT",
+        foobar: 1
+      })
+   })
+    // return Promise.resolve().then(_ => oldStore);
 };
 
 export function loginWithFacebook(oldStore){

@@ -19,6 +19,28 @@ const app = firebase.initializeApp(config);
 const base = Rebase.createClass(app.database());
 const db = firebase.database();
 
+/*
+  db.child('users').child(user.id).set(user)
+  const LOGIN_VIEW = 1;
+  const PROFILE_VIEW = 2;
+  const Store = {
+    ...
+    currentView: LOGIN_VIEW
+
+
+    switch (this.props.currentView) {
+      case LOGIN_VIEW:
+        return (<LoginViewComponet {...this.props});
+        break;
+      case PROFILE_VIEW:
+        return (<ProfileViewComponent);
+
+      default:
+        return (<LoginView)
+    }
+  }
+*/
+
 // export function _loginWithGoogle(){
 //   const provider = new firebase.auth.GoogleAuthProvider();
 //   firebase.auth().signInWithPopup(provider)
