@@ -11,6 +11,7 @@
     "native-base": "^2.1.5",
     "re-base": "^3.0.1",
     "react": "16.0.0-alpha.6",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-17.0.0.tar.gz"
+    "react-native": "https://github.com/expo/react-native/archive/sdk-17.0.0.tar.gz",
+    "react-native-swiper": "^1.5.4"
   }
 }

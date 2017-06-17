@@ -43,7 +43,7 @@ export default class LoginView extends Component {
     
     
     render() {
-        console.log(this.props)
+        // console.log(this.props)
      const ButtonProps = {
 			onPress: (e) => this.handleGooglePress(e),
 		};
