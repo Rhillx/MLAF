@@ -4,4 +4,5 @@ export const Store = {
     users: {},
     currentView: 1,
     currentUser: null,
+    currentModal: null,
 }

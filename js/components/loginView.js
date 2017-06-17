@@ -60,13 +60,13 @@ export default class LoginView extends Component {
                 </View>
 
                     {/*<View style ={styles.googleBtn}>*/}
-                         <Button iconLeft block info {...ButtonProps}>
+                         <Button iconLeft block info {...ButtonProps} style = {{bottom: 10}}>
                             <Icon name = 'person' />
                              <Text style = {styles.signInText}> SIGN IN WITH GOOGLE </Text>
                          </Button>
                     {/*</View>*/}
                      {/*<View style={styles.facebokBtn}>*/}
-                          <Button iconLeft block info {...ButtonProps2}>
+                          <Button iconLeft block info {...ButtonProps2} style = {{marginBottom: 300}}>
                             <Icon name = 'person' />
                              <Text style = {styles.signInText}> SIGN IN WITH FACEBOOK </Text>
                          </Button>
@@ -75,7 +75,7 @@ export default class LoginView extends Component {
                       <Footer>
                             <FooterTab>
                                 <Button full>
-                                    <Text>Footer</Text>
+                                    <Text>copyright 2017 rhillx</Text>
                                  </Button>
                         </FooterTab>
                     </Footer>
@@ -97,7 +97,8 @@ const styles = StyleSheet.create({
     },  
 
     logo:{
-        bottom: 30,
+        bottom: 40,
+        marginTop: 250,
     },
 
     signInText:{
