@@ -3,11 +3,16 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
 import LoginView from './loginView';
-import OptionView1 from './optionView';
-import OptionView from './modal';
+import OptionView from './optionView';
+import ModalView from './modal';
 // import ImageSelector from './imagePicker';
 import FoundItModal from './foundItModal';
-import PickerExample from './picker'
+import PickerExample from './picker';
+// import Sidebar from './sidebar';
+import DrawerEx from './drawer';
+// import Swiper from './gestures';
+
+import {ViewNames} from '../flux/Store';
 
 export default class App extends Component{
 
@@ -15,7 +20,7 @@ export default class App extends Component{
         const {currentUser} = this.props
         if(currentUser != null){
             this.props.dispatch('CHANGE_VIEW', {
-                viewNum: 2           
+                // viewNum: ViewNames.OPTION_VIEW       
             })
         }
     };
@@ -23,8 +28,16 @@ export default class App extends Component{
 
 
     render(){
+        // switch (this.props.currentView) {
+        //     case ViewNames.LOGIN_VIEW:
+        //         return <LoginView {...this.props} />
+        //     case ViewNames.OPTION_VIEW:
+        //         return <OptionView {...this.props} />
+        //     default:
+        //         return <LoginView {...this.props} />
+        // }
         return(
-         <PickerExample {...this.props} /> 
+         <OptionView {...this.props} /> 
         )
     }
 }

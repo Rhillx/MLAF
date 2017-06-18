@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Container, Content, InputGroup, Input, Icon, Item, Label, Form } from 'native-base';
 import {View, Text, StyleSheet} from 'react-native';
 
+import ImageSelector from './imagePicker';
+import PickerExample from './picker';
+
 
 
 
@@ -11,13 +14,17 @@ export default class LostItModal extends Component {
         return (
              <Container>
                     <Content>
-                        <Form style ={{Top: 200}}>
+                        <Form style = {{marginBottom: 400}}>
+                        <View style={{marginTop: 200}}>
+                        <ImageSelector {...this.props} />
+                        </View>
+                        <PickerExample {...this.props} />
                             <Item stackedLabel>
-                                <Label>Username</Label>
+                                <Label>Description...</Label>
                                 <Input />
                             </Item>
                             <Item stackedLabel last>
-                                <Label>Password</Label>
+                                <Label>Location</Label>
                                 <Input />
                             </Item>
                         </Form>

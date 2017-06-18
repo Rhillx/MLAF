@@ -37,7 +37,7 @@ export default class PickerExample extends Component {
         return (
             <Container>
                 <Content >
-                    <View style= {{marginTop: 400}}>
+                    <View style= {{marginTop: 100}}>
                     <Picker 
                         supportedOrientations={['portrait','landscape']}
                         mode="dropdown"
@@ -45,10 +45,10 @@ export default class PickerExample extends Component {
                         onValueChange={this.onValueChange.bind(this)}
                         >
                         <Item label="Select One" value="key0" />
-                        <Item label="keys" value="key1" />
+                        <Item label="Keys" value="key1" />
                         <Item label="Clothing" value="key2" />
-                        <Item label="Bag" value="key3" />
-                        <Item label="wallet" value="key4" />
+                        <Item label="Bag/Purse" value="key3" />
+                        <Item label="Wallet" value="key4" />
                         <Item label="Other.." value="key5" />
                    </Picker>
                    </View>
