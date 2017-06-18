@@ -42,25 +42,3 @@ export default class OptionView extends Component{
 }
 
 
-const styles = StyleSheet.create({
-    foundItBtn:{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    lostItBtn:{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    foundItText:{
-        fontSize: 35,
-        textShadowColor: '#fff',
-        textShadowRadius: 20
-    },
-    lostItText:{
-        fontSize: 35,
-        textShadowColor: '#fff',
-        textShadowRadius: 20
-    }
-})

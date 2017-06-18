@@ -3,10 +3,11 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
 import LoginView from './loginView';
-import OptionView from './optionView';
-import ModalExample from './modal';
+import OptionView1 from './optionView';
+import OptionView from './modal';
 // import ImageSelector from './imagePicker';
 import FoundItModal from './foundItModal';
+import PickerExample from './picker'
 
 export default class App extends Component{
 
@@ -23,7 +24,8 @@ export default class App extends Component{
 
     render(){
         return(
-         <LoginView {...this.props} /> 
+         <PickerExample {...this.props} /> 
         )
     }
 }
+

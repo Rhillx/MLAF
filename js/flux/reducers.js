@@ -16,6 +16,15 @@ export function createNewUser(name, email) {
 }
 
 
+export function selectModal(oldStore, options){
+  return Promise.resolve().then(_ => {
+    return Object.assign({}, oldStore, {
+      currentModalVal: options.modalSelect,
+    })
+  })
+};
+
+
 
 export function changeViewFunction(oldStore, options){
   console.log(options)
@@ -33,7 +42,6 @@ export function loginWithGoogle(oldStore){
      console.log(result.user.email)
       return Object.assign({}, oldStore, {
         currentUser: "New SHIT",
-        foobar: 1
       })
    })
     // return Promise.resolve().then(_ => oldStore);

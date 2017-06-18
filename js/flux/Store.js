@@ -5,4 +5,5 @@ export const Store = {
     currentView: 1,
     currentUser: null,
     currentModal: null,
+    currentModalVal: null,
 }
