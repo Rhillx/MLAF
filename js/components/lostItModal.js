@@ -14,19 +14,14 @@ export default class LostItModal extends Component {
         return (
              <Container>
                     <Content>
-                        <Form style = {{marginBottom: 400}}>
                         <View style={{marginTop: 200}}>
                         <ImageSelector {...this.props} />
                         </View>
                         <PickerExample {...this.props} />
-                            <Item stackedLabel>
-                                <Label>Description...</Label>
-                                <Input />
-                            </Item>
-                            <Item stackedLabel last>
-                                <Label>Location</Label>
-                                <Input />
-                            </Item>
+                        <Form>
+                            <Item regular style = {{marginTop: 30}} >
+                                <Input placeholder='Description..'/>
+                           </Item>
                         </Form>
                     </Content>
                 </Container>

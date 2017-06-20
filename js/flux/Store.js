@@ -10,4 +10,5 @@ export const Store = {
     currentUser: null,
     currentModal: null,
     currentModalVal: null,
+
 }

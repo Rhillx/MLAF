@@ -35,8 +35,6 @@ export default class PickerExample extends Component {
     render() {
   
         return (
-            <Container>
-                <Content >
                     <View style= {{marginTop: 100}}>
                     <Picker 
                         supportedOrientations={['portrait','landscape']}
@@ -52,8 +50,8 @@ export default class PickerExample extends Component {
                         <Item label="Other.." value="key5" />
                    </Picker>
                    </View>
-                </Content>
-            </Container>
+        
+        
         );
     }
 }

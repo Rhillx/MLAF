@@ -1,6 +1,6 @@
-import Expo from 'expo';
+import {Expo, Constants, Location, Permissions} from 'expo';
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { Platform, View, Text, StyleSheet, Image } from 'react-native';
 
 import LoginView from './loginView';
 import OptionView from './optionView';
@@ -11,10 +11,22 @@ import PickerExample from './picker';
 // import Sidebar from './sidebar';
 import DrawerEx from './drawer';
 // import Swiper from './gestures';
+import Map from './mapView'
 
 import {ViewNames} from '../flux/Store';
 
 export default class App extends Component{
+
+    componentWillMount() {
+    if (Platform.OS === 'android' && !Constants.isDevice) {
+      return
+    } else {
+     this.props.dispatch('GET_LOCATION', {
+
+     })
+    }
+  }
+
 
     componentDidMount(){
         const {currentUser} = this.props
@@ -24,6 +36,7 @@ export default class App extends Component{
             })
         }
     };
+
 
 
 

@@ -77,7 +77,7 @@ export default class OptionView extends Component{
 
                          {currentModal}
                      
-                         <Button primary onPress={() => {this.setLostModalVisible(!this.state.modalVisible)}}>
+                         <Button style = {{backgroundColor: '#096480'}} onPress={() => {this.setLostModalVisible(!this.state.modalVisible)}}>
                             <Text>GO BACK</Text>
                        </Button>
                         </Modal>
@@ -141,6 +141,11 @@ const styles = StyleSheet.create({
         fontSize: 35,
         textShadowColor: '#fff',
         textShadowRadius: 20
+    },
+    lostAddBtn:{
+        backgroundColor: '#c0c5c6',
+        // fontSize: 100
+        flex: 1
     }
 })
 

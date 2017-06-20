@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet } from 'react-native';
+import {View, Text, StyleSheet, Image } from 'react-native';
 import {
     Icon,
     Button,
@@ -12,7 +12,10 @@ export default class Sidebar extends Component{
     render(){
         return(
             <Container>
-              <Content style ={{marginTop: 200}}>
+                <Image style={styles.image} 
+                source = {require('../../assets/images/200x61.jpg')} 
+                />
+              <Content style ={{marginTop: 100}}>
                   <Button iconLeft large block light style = {{marginBottom: 20}}>
                       <Icon name='person' />
                       <Text>Account</Text>
@@ -29,12 +32,15 @@ export default class Sidebar extends Component{
                       <Icon name='paper-plane' />
                       <Text>Contact Us</Text>
                   </Button>
-                   <Button iconLeft large info>
-                      <Icon name='arrow-back' />
-                      <Text>Go Back</Text>
-                  </Button>
                  </Content>
              </Container>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    image:{
+        width: 350,
+        height: 100,
+    }
+})
