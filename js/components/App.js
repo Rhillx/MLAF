@@ -50,7 +50,7 @@ export default class App extends Component{
         //         return <LoginView {...this.props} />
         // }
         return(
-         <OptionView {...this.props} /> 
+         <LoginView {...this.props} /> 
         )
     }
 }

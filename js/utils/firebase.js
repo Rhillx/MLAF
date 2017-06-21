@@ -1,11 +1,13 @@
-// import firebase from 'firebase'
+
+
 /*
 REMEMBER TO EXPORT FUNCTIONS ONCE DONE TESTING
 
 REMOVE 'REQUIRE' AND IMPLEMENT 'IMPORT'
 */
-const Rebase = require('re-base');
-const firebase = require('firebase')
+
+const firebase = require('firebase');
+
 const config = {
     apiKey: "AIzaSyClfUaJ4TwmSRDCf4drhDzevMOAFzoOqjQ",
     authDomain: "mlaf-a224d.firebaseapp.com",
@@ -16,124 +18,93 @@ const config = {
   };
 
 const app = firebase.initializeApp(config);
-const base = Rebase.createClass(app.database());
 const db = firebase.database();
 
-/*
-  db.child('users').child(user.id).set(user)
-  const LOGIN_VIEW = 1;
-  const PROFILE_VIEW = 2;
-  const Store = {
-    ...
-    currentView: LOGIN_VIEW
 
-
-    switch (this.props.currentView) {
-      case LOGIN_VIEW:
-        return (<LoginViewComponet {...this.props});
-        break;
-      case PROFILE_VIEW:
-        return (<ProfileViewComponent);
-
-      default:
-        return (<LoginView)
-    }
-  }
-*/
-
-// export function _loginWithGoogle(){
-//   const provider = new firebase.auth.GoogleAuthProvider();
-//   firebase.auth().signInWithPopup(provider)
-//   .then(function(result) {
-//     const user = result.user;
-//     console.log(user)
-//   })
-//   .catch(function(error){
-//     console.log(error)
-//   });
-// };
-
-// // loginWithGoogle()
 
 
 // CREATE DATA FUNCTIONS
 
-function createNewUser(name, email) {
-  const newUserRef = db.ref('users').push();
-  const newUserKey = newUserRef.key;
-  console.log(name);
+export function createUser(name, email, id, photo) {
+  // const newUser = db.ref('users').push();
+  // const Key = newUser.key;
+  // console.log(name);
 
   db.ref('users').push({
-    Id: newUserKey,
-    username: name,
-    email: email
+    Id: id,
+    name: name,
+    email: email,
+    photo: photo
   });
 } 
 
 
- function createFoundItem(lat, lng, description, image){
-  const newItemRef = db.ref('foundItems').push();
-  const newUserKey = newItemRef.key;
+ function createFoundItem(image, item, location){
   console.log('running createFoundItem');
+  const newItem = db.ref('foundItems').push()
+  const key = newItem.key
 
   db.ref('foundItems').push({
-    userId: newUserKey,
-    lat: lat,
-    lng: lng,
-    description: description,
-    image: image
+    userId: key,
+    image: image,
+    item: item,
+    location: location
 
   })
 }
 
-function createLostItem(location, description, reward, image){
-  const newItemRef = db.ref('lostItems').push();
-  const newUserKey = newItemRef.key;
+// createFoundItem('../../assets/images/200x61.jpg', 'jacket', '34-1357811')
+
+
+
+function createLostItem(location, item, image){
+  const newItem = db.ref('lostItems').push();
+  const Key = newItem.key;
   console.log('running lost item');
 
   db.ref('lostItems').push({
-    userId: newUserKey,
+    userId: Key,
     location: location,
-    description: description,
-    reward: reward,
+    item: item,
     image: image
   })
 }
 
 // GET DATA FUNCTIONS..PROMISES
 
- function getAllUsers() {
-   base.fetch('users', {
-      context: this,
-   }).then(data => {
-     console.log(data)
-   }).catch(data =>{
-     console.log("error");
-   })
+
+function getFoundItems(){
+  const foundItems = db.ref('foundItems').once('value');
+
+  return foundItems.then(function (snapshot){
+    const item = snapshot.val()
+    const keys = Object.keys(item)
+    console.log('items is', keys)
+  })
 }
 
-getAllUsers()
+// getFoundItems();
 
-function getFoundItems() {
-   base.fetch('foundItems', {
-      context: this,
-   }).then(data => {
-     console.log(data.image)
-   }).catch(data =>{
-     console.log("error");
-   })
+function getLostItems(){
+  const lostItems = db.ref('lostItems').once('value');
+
+  return lostItems.then(function(snapshot){
+    const itemsLost = snapshot.val();
+    return itemsLost
+  })
 }
 
-// getFoundItems()
+getLostItems();
 
-function getLostItems() {
-   base.fetch('lostItems', {
-      context: this,
-   }).then(data => {
-     console.log(data)
-   }).catch(data =>{
-     console.log("error");
-   })
+
+function getUsers(){
+  const users = db.ref('users').once('value');
+
+  return users.then(function(snapshot){
+    const activeUsers = snapshot.val();
+
+    return activeUsers
+  })
 }
 
 
@@ -141,15 +112,6 @@ function getLostItems() {
 // UPDATE INFO DATA FUCNTIONS
 
 
-function addUser() {
-  base.post(`users/KmJAAiEtZzG6b2caTnn`, {
-    data: {email: 'GYFS@mlaf.com', username: 'funnyTony'}
-  }).then(() => {
-    Router.transitionTo('dashboard');
-  }).catch(err => {
-    console.log('boom');
-  });
-}
 
 
 
