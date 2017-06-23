@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Text, TouchableHighlight, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { Modal, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import {
     Container,
     Content,
@@ -13,6 +13,8 @@ import Sidebar from './sidebar';
 
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
+import Store from '../flux/Store'
+
 import FoundItModal from './foundItModal';
 import LostItModal from './lostItModal';
 
@@ -21,28 +23,36 @@ import LostItModal from './lostItModal';
 
 export default class OptionView extends Component{
 
-      constructor(props) {
-    super(props);
-    this.state = {modalVisible: false};
-  }
+//       constructor(props) {
+//     super(props);
+//     this.state = {modalVisible: false};
+//   }
 
-  setFoundModalVisible(visible) {
-    this.setState({modalVisible: visible});
+state = Store
+
+  setFoundModalVisible() {
+    // this.setState({modalVisible: visible});
     this.props.dispatch('MODAL_SELECT', {
         modalSelect: 'found',
+        makeVisible: true
     })
   }
 
-  setLostModalVisible(visible) {
-    this.setState({modalVisible: visible});
+  setLostModalVisible() {
+    // this.setState({modalVisible: visible});
     this.props.dispatch('MODAL_SELECT', {
         modalSelect: 'lost',
+        makeVisible: true
     })
   }
+
+
+
+  
 
              onSwipeRight(){
                   this.drawer._root.open()
-             }
+             };
 
                closeDrawer = () => {
               this.drawer._root.close()
@@ -52,13 +62,13 @@ export default class OptionView extends Component{
  render (){
      let currentModal = null;
     if (this.props.currentModalVal === 'found') {
-        currentModal = <FoundItModal {...this.props} />;
+        currentModal = <FoundItModal {...this.props} />
     }
     else if (this.props.currentModalVal === 'lost') {
         currentModal = <LostItModal {...this.props} />
     }
 
-        console.log("in OPTIONVIEW");
+        console.log("in OPTIONVIEW", this.props);
         return(
              <Drawer
               ref={(ref) => { this.drawer = ref; }}
@@ -69,15 +79,16 @@ export default class OptionView extends Component{
                 <Content>
                   <Grid>
                      <Modal
-                         animationType={"slide"}
+                         animationType={"fade"}
                           transparent={false}
-                          visible={this.state.modalVisible}
-                          onRequestClose={() => {alert("Modal has been closed.")}}
+                          visible={this.props.modalVisible}
+                          onRequestClose={() => {this.props.modalVisible(false)}}
                           >
 
-                         {currentModal}
+                        {currentModal}
                      
-                         <Button style = {{backgroundColor: '#096480'}} onPress={() => {this.setLostModalVisible(!this.state.modalVisible)}}>
+                         <Button style = {{backgroundColor: '#096480'}} 
+                         onPress={() => {}}>
                             <Text>GO BACK</Text>
                        </Button>
                         </Modal>
@@ -87,20 +98,22 @@ export default class OptionView extends Component{
                         <Icon name='arrow-forward' style = {{marginTop: 150}}/>
                         <Text>pull for menu</Text>
                         </GestureRecognizer>
+
                          <TouchableOpacity style ={styles.foundItBtn} onPress={() => {
-                             this.setFoundModalVisible(true)
+                             this.setFoundModalVisible()
                          }}>
-                             <Text style={styles.foundItText} >FOUND IT</Text>
+                             <Text style={styles.foundItText}>FOUND IT</Text>
                              </TouchableOpacity>
                         </Col>
                         
                         <Col style={{ backgroundColor: '#cacdd1', height: 800  }}>
                              <TouchableOpacity style ={styles.lostItBtn} onPress={() => {
-                              this.setLostModalVisible(true)
+                             this.setLostModalVisible()
                          }}>
                              <Text style={styles.lostItText}>LOST IT</Text>
                              </TouchableOpacity>
                          </Col>
+
                     </Grid>
                 </Content>
             </Container>
@@ -108,18 +121,6 @@ export default class OptionView extends Component{
         )
  }
 }
-
-                        /*<View style ={styles.foundItBtn}>
-                             <Button large block bordered>
-                                 <Text style={styles.foundItText}>FOUND IT</Text>
-                             </Button>
-                         </View>*/
-
-                          /*<View style ={styles.lostItBtn}>
-                             <Button large block bordered>
-                                 <Text style ={styles.lostItText}>LOST IT</Text>
-                           </Button>
-                         </View>*/
 
 const styles = StyleSheet.create({
     foundItBtn:{

@@ -2,21 +2,61 @@ import React, { Component } from 'react';
 import { Container, Content, InputGroup, Input, Icon, Item, Button } from 'native-base';
 import {View, Text, StyleSheet} from 'react-native'
 import ImageSelector from './imagePicker';
+import PickerExample from './picker';
 
 
 export default class FoundItModal extends Component {
+
+state = {
+    description: "",
+    image: "",
+}
+
+handleDescription(text){
+    this.setState({
+        description: text
+    })
+}
+
+handleImageUpload(uri) {
+    this.setState({
+        image: uri,
+    })
+}
+
+
+
+submit(){
+
+    this.props.dispatch('POST_FOUND_ITEM', {
+        description: this.state.description,
+        image: this.state.image,
+        viewNum: 2,
+        modalVisible: false,
+        currentModalVal: null,
+    })
+    
+}
+    
+
     render() {
         return (
             <Container>
                 <Content>
-                    <View style ={{marginTop: 200}}>
-                        <ImageSelector {...this.props} />
+                    <View style ={{marginTop: 100}}>
+                        <ImageSelector {...this.props} onImageUploaded={this.handleImageUpload.bind(this)} />
                     </View> 
-                    <Item underlined style ={{marginBottom: 40}}>
-                        <Input style = {{marginTop: 200}} placeholder= 'Description..'/>
+                  
+                    <Item regular style ={{marginLeft: 20, marginRight: 20, marginTop: 40}}>
+                        <Input placeholder= 'Description..' 
+                               value={this.state.description}
+                               onChangeText={(text) => this.handleDescription(text)}/>
                     </Item>
-                    <Button rounded success style={styles.submitFoundBtn}>
-                        <Text style={{color: '#fff'}}>+</Text>
+                    <Button iconLeft rounded success style={{marginLeft:120, marginTop: 200}}
+                    onPress={() => this.submit()}
+                    >
+                        <Icon name='eye'/>
+                        <Text style={{color: '#fff', fontSize: 30 }}>Found</Text>
                   </Button>
                 </Content>
             </Container>    
@@ -31,9 +71,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    submitFoundBtn:{
-         
-
+    descInput:{
+        marginTop: 30
     }
 })
              

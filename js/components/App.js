@@ -7,6 +7,7 @@ import OptionView from './optionView';
 import ModalView from './modal';
 // import ImageSelector from './imagePicker';
 import FoundItModal from './foundItModal';
+import LostItModal from './lostItModal';
 import PickerExample from './picker';
 // import Sidebar from './sidebar';
 import DrawerEx from './drawer';
@@ -32,7 +33,7 @@ export default class App extends Component{
         const {currentUser} = this.props
         if(currentUser != null){
             this.props.dispatch('CHANGE_VIEW', {
-                // viewNum: ViewNames.OPTION_VIEW       
+                viewNum: ViewNames.OPTION_VIEW       
             })
         }
     };
@@ -41,14 +42,15 @@ export default class App extends Component{
 
 
     render(){
-        // switch (this.props.currentView) {
-        //     case ViewNames.LOGIN_VIEW:
-        //         return <LoginView {...this.props} />
-        //     case ViewNames.OPTION_VIEW:
-        //         return <OptionView {...this.props} />
-        //     default:
-        //         return <LoginView {...this.props} />
-        // }
+        console.log('render', this.props.currentView, ViewNames)
+        switch (this.props.currentView) {
+            case ViewNames.LOGIN_VIEW:
+                return <LoginView {...this.props} />
+            case ViewNames.OPTION_VIEW:
+                return <OptionView {...this.props} />
+            default:
+                return <LoginView {...this.props} />
+        }
         return(
          <LoginView {...this.props} /> 
         )

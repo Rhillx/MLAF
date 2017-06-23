@@ -1,10 +1,12 @@
 import{
     createNewUser,
-    createFoundItem,
+    postFoundItem,
     loginWithGoogle,
     changeViewFunction,
     selectModal,
     getLocation,
+    pickImageAsync,
+    saveImage,
 } from './reducers'
 
 export const actions ={
@@ -14,6 +16,9 @@ export const actions ={
     'MODAL_SELECT':(...args) => selectModal(...args),
     'OPEN_DRAWER':(...args) => openDrawer(...args),
     'GET_LOCATION':(...args) => getLocation(...args),
-    'CREATE_FOUND_ITEM':(...args) => createFoundItem(...args),
-    
+
+    'POST_FOUND_ITEM':(oldStore, options) => postFoundItem(oldStore, options).then((newStore) => changeViewFunction(newStore, options)),
+
+    'GET_IMAGE':(...args) => pickImageAsync(...args),
+    'SAVE_IMAGE': (...args) => saveImage(...args),
 }

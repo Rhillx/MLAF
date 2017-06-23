@@ -26,11 +26,8 @@ const db = firebase.database();
 // CREATE DATA FUNCTIONS
 
 export function createUser(name, email, id, photo) {
-  // const newUser = db.ref('users').push();
-  // const Key = newUser.key;
-  // console.log(name);
 
-  db.ref('users').push({
+  db.ref('users').child(id).set({
     Id: id,
     name: name,
     email: email,
@@ -39,17 +36,15 @@ export function createUser(name, email, id, photo) {
 } 
 
 
- function createFoundItem(image, item, location){
-  console.log('running createFoundItem');
-  const newItem = db.ref('foundItems').push()
-  const key = newItem.key
-
-  db.ref('foundItems').push({
-    userId: key,
+ export function createFoundItem(image, description, location){
+   console.log(image, description)
+  const key = db.ref('foundItems').push().key;
+  // return Promise.resolve().then()
+  return db.ref('foundItems').child(key).set({
     image: image,
-    item: item,
-    location: location
-
+    description: description,
+    location: location,
+    thekey: key
   })
 }
 

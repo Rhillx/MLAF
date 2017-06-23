@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Button, Image, View, Text } from 'react-native';
+import React from 'react';
+import { Button, Image, View } from 'react-native';
 import { ImagePicker } from 'expo';
 
-export default class ImageSelector extends Component {
+export default class ImageSelector extends React.Component {
   state = {
     image: null,
   };
@@ -11,13 +11,13 @@ export default class ImageSelector extends Component {
     let { image } = this.state;
 
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ alignItems: 'center', justifyContent: 'center' }}>
         <Button
-          title="Pick an image from camera roll"
+          title="Select Image"
           onPress={this._pickImage}
         />
         {image &&
-          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+          <Image source={{ uri: image }} style={{ width: 400, height: 300 }} />}
       </View>
     );
   }
@@ -29,9 +29,12 @@ export default class ImageSelector extends Component {
     });
 
     console.log(result);
+    console.log(this.props);
 
     if (!result.cancelled) {
       this.setState({ image: result.uri });
+      this.props.onImageUploaded(result.uri)
+      return result
     }
   };
 }
