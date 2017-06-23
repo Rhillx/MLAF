@@ -6,7 +6,7 @@ REMEMBER TO EXPORT FUNCTIONS ONCE DONE TESTING
 REMOVE 'REQUIRE' AND IMPLEMENT 'IMPORT'
 */
 
-const firebase = require('firebase');
+import Firebase from 'firebase';
 
 const config = {
     apiKey: "AIzaSyClfUaJ4TwmSRDCf4drhDzevMOAFzoOqjQ",
@@ -17,8 +17,8 @@ const config = {
     messagingSenderId: "158809822358"
   };
 
-const app = firebase.initializeApp(config);
-const db = firebase.database();
+const app = Firebase.initializeApp(config);
+const db = Firebase.database();
 
 
 
@@ -36,7 +36,7 @@ export function createUser(name, email, id, photo) {
 } 
 
 
- export function createFoundItem(image, description, location){
+ export function createFoundItem(image, description, location, userId){
    console.log(image, description)
   const key = db.ref('foundItems').push().key;
   // return Promise.resolve().then()
@@ -44,63 +44,61 @@ export function createUser(name, email, id, photo) {
     image: image,
     description: description,
     location: location,
+    userId: userId,
     thekey: key
   })
 }
 
-// createFoundItem('../../assets/images/200x61.jpg', 'jacket', '34-1357811')
 
 
 
-function createLostItem(location, item, image){
-  const newItem = db.ref('lostItems').push();
-  const Key = newItem.key;
-  console.log('running lost item');
-
-  db.ref('lostItems').push({
-    userId: Key,
+export function createLostItem(image, description, location, userId){
+   console.log(image, description)
+  const key = db.ref('lostItems').push().key;
+  // return Promise.resolve().then()
+  return db.ref('lostItems').child(key).set({
+    image: image,
+    description: description,
     location: location,
-    item: item,
-    image: image
+    userId: userId,
+    thekey: key
   })
 }
 
 // GET DATA FUNCTIONS..PROMISES
 
 
-function getFoundItems(){
-  const foundItems = db.ref('foundItems').once('value');
+// function getFoundItems(){
+//   const foundItems = db.ref('foundItems').once('value');
 
-  return foundItems.then(function (snapshot){
-    const item = snapshot.val()
-    const keys = Object.keys(item)
-    console.log('items is', keys)
-  })
-}
+//   return foundItems.then(function (snapshot){
+//     const item = snapshot.val()
+//     const keys = Object.keys(item)
+//     console.log('items is', keys)
+//   })
+// }
 
-// getFoundItems();
+// // getFoundItems();
 
-function getLostItems(){
-  const lostItems = db.ref('lostItems').once('value');
+// function getLostItems(){
+//   const lostItems = db.ref('lostItems').once('value');
 
-  return lostItems.then(function(snapshot){
-    const itemsLost = snapshot.val();
-    return itemsLost
-  })
-}
-
-getLostItems();
+//   return lostItems.then(function(snapshot){
+//     const itemsLost = snapshot.val();
+//     return itemsLost
+//   })
+// }
 
 
-function getUsers(){
-  const users = db.ref('users').once('value');
+// function getUsers(){
+//   const users = db.ref('users').once('value');
 
-  return users.then(function(snapshot){
-    const activeUsers = snapshot.val();
+//   return users.then(function(snapshot){
+//     const activeUsers = snapshot.val();
 
-    return activeUsers
-  })
-}
+//     return activeUsers
+//   })
+// }
 
 
 

@@ -33,7 +33,7 @@ submit(){
         image: this.state.image,
         viewNum: 2,
         modalVisible: false,
-        currentModalVal: null,
+        // currentModalVal: null,
     })
     
 }

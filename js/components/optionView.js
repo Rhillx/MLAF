@@ -82,13 +82,12 @@ state = Store
                          animationType={"fade"}
                           transparent={false}
                           visible={this.props.modalVisible}
-                          onRequestClose={() => {this.props.modalVisible(false)}}
+                          onRequestClose={this.props.modalVisible}
                           >
 
                         {currentModal}
                      
-                         <Button style = {{backgroundColor: '#096480'}} 
-                         onPress={() => {}}>
+                         <Button style = {{backgroundColor: '#096480'}}>
                             <Text>GO BACK</Text>
                        </Button>
                         </Modal>

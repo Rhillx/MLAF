@@ -29,6 +29,7 @@ export const Store = {
     },
     currentView: ViewNames.LOGIN_VIEW,
     currentUser: null,
+    currentUserName: null,
     currentModal: null,
     currentModalVal: null,
     modalVisible: false,

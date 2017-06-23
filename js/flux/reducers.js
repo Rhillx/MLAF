@@ -1,4 +1,4 @@
-import { createUser, createFoundItem} from '../utils/firebase';
+import { createUser, createFoundItem, createLostItem} from '../utils/firebase';
 import {signInWithGoogleAsync, facebookLogIn} from '../auth';
 import {getLocationAsync} from '../utils/expo';
 import {ViewNames} from './Store';
@@ -9,10 +9,16 @@ import {_pickImage} from '../components/imagePicker';
 
 export function postFoundItem(oldStore, extra){
   const {image, description} = extra;
-  const {location, currentView} = oldStore;
-  console.log('----------------------')
-  console.log(image, description, location, currentView)
-  return createFoundItem(image, description, location).then(_ => {
+  const {location, currentUser} = oldStore;
+  return createFoundItem(image, description, location, currentUser).then(_ => {
+    return Object.assign({}, oldStore)
+  });
+}
+
+export function postLostItem(oldStore, extra){
+  const {image, description} = extra;
+  const {location, currentUser} = oldStore;
+  return createLostItem(image, description, location, currentUser).then(_ => {
     return Object.assign({}, oldStore)
   });
 }
@@ -47,11 +53,13 @@ export function changeViewFunction(oldStore, options){
 
 export function loginWithGoogle(oldStore){
    return signInWithGoogleAsync().then((result) => {
-    
-   createUser(result.user.name, result.user.email, result.user.id, result.user.photoUrl)
+    const {name, email, id, photoUrl} = result.user;
+
+   createUser(name, email, id, photoUrl)
 
       return Object.assign({}, oldStore, {
-        currentUser: result.user.id,
+        currentUser: id,
+        currentUserName: name,
         currentView: ViewNames.OPTION_VIEW,
       })
      })
