@@ -80,14 +80,15 @@ export function createLostItem(image, description, location, userId){
 
 // // getFoundItems();
 
-// function getLostItems(){
-//   const lostItems = db.ref('lostItems').once('value');
+export function getFoundItems(){
+  const foundItems = db.ref('foundItems').once('value');
 
-//   return lostItems.then(function(snapshot){
-//     const itemsLost = snapshot.val();
-//     return itemsLost
-//   })
-// }
+  return foundItems.then(function(snapshot){
+    const itemsFound = snapshot.val();
+
+    return itemsFound
+  })
+}
 
 
 // function getUsers(){
@@ -101,6 +102,31 @@ export function createLostItem(image, description, location, userId){
 // }
 
 
+export function getMessages(){
+  const messages = db.ref('responseMessages').once('value')
+
+  return messages.then(function(snapshot){
+			const responseMessages = snapshot.val()
+
+      return responseMessages
+
+  })
+}
+
+export function createMessage(message, userId){
+  const key = db.ref('sentMessages').push().key
+  return db.ref('sentMessages').child(key).set({
+    message,
+    userId,
+    thekey: key
+  })
+
+}
+
+
+export function getMessageStream(callback) {
+  db.ref('sentMessages').on('value', callback)
+}
 
 // UPDATE INFO DATA FUCNTIONS
 

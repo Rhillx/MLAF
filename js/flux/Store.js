@@ -4,30 +4,15 @@ export const ViewNames = {
     // BIN_VIEW: 3,
 }
 export const Store = {
-    foundItems: {
-        image: "",
-        item:"",
-        description: "",
-        location:{
-            lat:"",
-            lng:""
-        }
-    },
-    lostItems:{
-        image:'',
-        item:'',
-        location:{
-            lat:'',
-            lng:''
-        }
-    },
+    foundItemsList: [],
+
     users: {
         id:'',
         image:'',
         email:'',
         name:'',
     },
-    currentView: ViewNames.LOGIN_VIEW,
+    currentView: null,
     currentUser: null,
     currentUserName: null,
     currentModal: null,
@@ -35,3 +20,6 @@ export const Store = {
     modalVisible: false,
 
 }
+/*THIS IS currentView initial Val
+*/
+// ViewNames.LOGIN_VIEW

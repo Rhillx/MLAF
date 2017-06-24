@@ -2,12 +2,15 @@ import{
     createNewUser,
     postFoundItem,
     postLostItem,
+    readFoundItems,
     loginWithGoogle,
     changeViewFunction,
     selectModal,
     getLocation,
     pickImageAsync,
     saveImage,
+    sendMessage,
+    recieveMessages,
 } from './reducers'
 
 export const actions ={
@@ -23,4 +26,7 @@ export const actions ={
 
     'GET_IMAGE':(...args) => pickImageAsync(...args),
     'SAVE_IMAGE': (...args) => saveImage(...args),
+    'GET_FOUND_ITEMS':(...args) => readFoundItems(...args),
+    'SEND_MESSAGE':(...args)=> sendMessage(...args),
+    'RECIEVE_MESSAGES':(...args)=> recieveMessages(...args),
 }

@@ -1,4 +1,11 @@
-import { createUser, createFoundItem, createLostItem} from '../utils/firebase';
+import {
+  createUser, 
+  createFoundItem, 
+  createLostItem,
+  getFoundItems,
+  createMessage,
+  getMessages,
+} from '../utils/firebase';
 import {signInWithGoogleAsync, facebookLogIn} from '../auth';
 import {getLocationAsync} from '../utils/expo';
 import {ViewNames} from './Store';
@@ -21,6 +28,28 @@ export function postLostItem(oldStore, extra){
   return createLostItem(image, description, location, currentUser).then(_ => {
     return Object.assign({}, oldStore)
   });
+}
+
+
+export function readFoundItems(oldStore, extra){
+  console.log('in readLostItem')
+  const {itemsFound} = extra
+  return getFoundItems().then(itemsFound => {
+    console.log("itemsLost", itemsFound)
+    const foundItemsList = Object.keys(itemsFound).map(key=>{
+      const data= itemsFound[key]
+      return {
+        // console.log(data.description, data.location.timestamp);
+        description: data.description,
+        date: new Date(data.location.timestamp) 
+      }
+    });
+        console.log("foundItemsList", foundItemsList);
+    return Object.assign({}, oldStore, {
+         foundItemsList: foundItemsList
+    })
+
+  })
 }
 
 
@@ -89,6 +118,27 @@ export function getLocation(oldStore){
 //       return result
 //     }
 //   };
+
+export function recieveMessages(oldStore, options){
+
+  return getMessages().then((responseMessages)=>{
+    const returnedMessages = Object.keys(responseMessages).map(key=>{
+      const data = responseMessages[key]
+      console.log(data)
+      return{
+        
+      }
+    })
+  })
+}
+
+
+export function sendMessage(oldStore, options){
+
+  return createMessage('this is a message',oldStore.currentUser).then(_=>{
+    return Object.assign({}, oldStore)
+  })
+}
 
 
 
