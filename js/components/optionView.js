@@ -76,8 +76,7 @@ state = Store
               onClose={() => this.closeDrawer()} >
               
             <Container>
-                <Content>
-                  <Grid>
+            
                      <Modal
                          animationType={"fade"}
                           transparent={false}
@@ -92,29 +91,41 @@ state = Store
                        </Button>
                         </Modal>
 
-                        <Col style={{ backgroundColor: '#096480', height: 800 }}>
-                        <GestureRecognizer onSwipeRight ={()=> this.onSwipeRight()}>
-                        <Icon name='arrow-forward' style = {{marginTop: 150}}/>
-                        <Text>pull for menu</Text>
-                        </GestureRecognizer>
+                        <View style={styles.superContainer}>
+                                    <GestureRecognizer onSwipeRight ={()=> this.onSwipeRight()}>
+                                    <Icon name='arrow-forward' style = {{marginTop: 100}}/>
+                                    <Text>pull for menu</Text>
+                                    </GestureRecognizer>
+                            <View style={styles.container1}>
+                               
+                                    <Text style={style.viewBin}>View Bin</Text>
+                              
+                            </View>
 
-                         <TouchableOpacity style ={styles.foundItBtn} onPress={() => {
-                             this.setFoundModalVisible()
-                         }}>
-                             <Text style={styles.foundItText}>FOUND IT</Text>
-                             </TouchableOpacity>
-                        </Col>
-                        
-                        <Col style={{ backgroundColor: '#cacdd1', height: 800  }}>
-                             <TouchableOpacity style ={styles.lostItBtn} onPress={() => {
-                             this.setLostModalVisible()
-                         }}>
-                             <Text style={styles.lostItText}>LOST IT</Text>
-                             </TouchableOpacity>
-                         </Col>
+                            <View style={styles.container2}>
+                                
 
-                    </Grid>
-                </Content>
+                                <View style={{ backgroundColor: '#096480', flex: 2 }}>
+
+                                    <TouchableOpacity style ={styles.foundItBtn} onPress={() => {
+                                        this.setFoundModalVisible()
+                                    }}>
+                                        <Text style={styles.foundItText}>FOUND IT</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                
+                                <View style={{ backgroundColor: '#cacdd1', flex: 2}}>
+                                    <TouchableOpacity style ={styles.lostItBtn} onPress={() => {
+                                    this.setLostModalVisible()
+                                }}>
+                                    <Text style={styles.lostItText}>LOST IT</Text>
+                                    </TouchableOpacity>
+                                </View>
+                               
+                            </View>
+                         </View>
+
+             
             </Container>
           </Drawer>
         )
@@ -122,13 +133,28 @@ state = Store
 }
 
 const styles = StyleSheet.create({
+    superContainer: {
+        flex: 1,
+    },
+    container1: {
+        flex: 3,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+     container2: {
+        flex: 1,
+        flexDirection: 'row'
+    },
+    viewBin: {
+        // fontSize: 30
+    },
     foundItBtn:{
-        marginTop: 200,
+        // marginTop: 200,
         alignItems: 'center',
         justifyContent: 'center',
     },
     lostItBtn:{
-        marginTop: 400,
+        // marginTop: 400,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -146,7 +172,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#c0c5c6',
         // fontSize: 100
         flex: 1
-    }
+    },
 })
 
 

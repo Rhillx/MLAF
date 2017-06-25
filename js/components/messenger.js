@@ -1,45 +1,67 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import {View, Text, Button, TouchableOpacity, KeyboardAvoidingView, StyleSheet} from 'react-native';
+import {Container, Content, Item, Input, Icon, Card, CardItem} from 'native-base';
+import {Constants} from 'expo'; 
 
-export default class ChatRoom extends Component {
 
 
 
-		
 
-	updateMessage(event){
-	//	console.log('updateMessage: '+event.target.value)
-		this.setState({
-			message: event.target.value
-		})
-	}
 
+
+
+export default class Messenger extends Component {
+
+    state = {currentUserMessage: '', margin: 700}
+
+
+handleUserMessage(text){
+    // console.log('text is-------',text);
+    this.setState({
+
+         currentUserMessage: text
+
+    })
+}
+
+submitMessage(){
+   this.props.dispatch('SEND_MESSAGE',{
+            message: this.state.currentUserMessage,
+            userId: this.props.userId
+        })
+    }
 
         
-
-
 	render(){
-		// this.setState({
-		// 	messages:list
-		// })
-		firebase.database().ref('messages/'+nextMessage.id).set(nextMessage)
-	}		const currentMessage = this.state.messages.map((message, i) => {
-			return(
-					<li key={message.id}>{message.text}</li>
-				)
-		}) 
+		console.log('in messanger')
+		
 		return(
 
-			<div>
-				<ol>
-					{currentMessage}
-				</ol>
-				<input onChange={this.updateMessage} type="text" placeholder="Message" />
-				<br />
-				<button onClick={this.submitMessage}>Submit Message</button>
-			</div>
-
-			)
+                 <KeyboardAvoidingView behavior='padding' style={styles.container}>
+                     <Item rounded style={styles.inputBox}>
+                         <Input placeholder='Type Message..' 
+                         onChangeText={(text)=> this.handleUserMessage(text)}
+                         blurOnSubmit={true}
+                         multiline={true}/>
+                     <TouchableOpacity onPress={() => this.submitMessage()}>
+                        <Icon active name='paper-plane'/>
+                    </TouchableOpacity>
+                     </Item>
+                </KeyboardAvoidingView>
+        
+            )
 
 	}
 
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'flex-end',
+    paddingTop: Constants.statusBarHeight,
+    flexDirection: 'column-reverse'
+},
+
+
+})

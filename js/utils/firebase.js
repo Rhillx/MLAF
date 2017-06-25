@@ -102,30 +102,43 @@ export function getFoundItems(){
 // }
 
 
-export function getMessages(){
-  const messages = db.ref('responseMessages').once('value')
+// export function getMessages(){
+//   const messages = db.ref('responseMessages').once('value')
 
-  return messages.then(function(snapshot){
-			const responseMessages = snapshot.val()
+//   return messages.then(function(snapshot){
+// 			const responseMessages = snapshot.val()
 
-      return responseMessages
+//       return responseMessages
 
-  })
+//   })
+// }
+
+// export function createMessage(message, userId){
+//   const key = db.ref('sentMessages').push().key
+//   return db.ref('sentMessages').child(key).set({
+//     message,
+//     userId,
+//     thekey: key
+//   })
+
+// }
+export function messenger(message = "FOO", userId = "111598038136172896479", currentUser = '111598038136172896479'){
+// console.log(message, userName);
+console.log('messenger')
+console.log(message, userId, currentUser)
+if (currentUser === null) {
+  currentUser = '111598038136172896479'
 }
-
-export function createMessage(message, userId){
-  const key = db.ref('sentMessages').push().key
-  return db.ref('sentMessages').child(key).set({
-    message,
-    userId,
-    thekey: key
-  })
+ return db.ref('messages').child(currentUser).child(userId).push({
+     message : message || null,
+})
 
 }
 
 
 export function getMessageStream(callback) {
-  db.ref('sentMessages').on('value', callback)
+
+  db.ref('messages').on('value', callback)
 }
 
 // UPDATE INFO DATA FUCNTIONS

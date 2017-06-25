@@ -3,7 +3,7 @@ import {
   createFoundItem, 
   createLostItem,
   getFoundItems,
-  createMessage,
+  messenger,
   getMessages,
 } from '../utils/firebase';
 import {signInWithGoogleAsync, facebookLogIn} from '../auth';
@@ -41,7 +41,8 @@ export function readFoundItems(oldStore, extra){
       return {
         // console.log(data.description, data.location.timestamp);
         description: data.description,
-        date: new Date(data.location.timestamp) 
+        date: new Date(data.location.timestamp),
+        userId: data.userId,
       }
     });
         console.log("foundItemsList", foundItemsList);
@@ -119,24 +120,29 @@ export function getLocation(oldStore){
 //     }
 //   };
 
-export function recieveMessages(oldStore, options){
+// export function recieveMessages(oldStore, options){
 
-  return getMessages().then((responseMessages)=>{
-    const returnedMessages = Object.keys(responseMessages).map(key=>{
-      const data = responseMessages[key]
-      console.log(data)
-      return{
+//   return getMessages().then((responseMessages)=>{
+//     const returnedMessages = Object.keys(responseMessages).map(key=>{
+//       const data = responseMessages[key]
+//       console.log(data)
+//       return{
         
-      }
-    })
-  })
-}
+//       }
+//     })
+//   })
+// }
 
 
 export function sendMessage(oldStore, options){
+const {currentUser} = oldStore
+const {message, userId} = options
 
-  return createMessage('this is a message',oldStore.currentUser).then(_=>{
-    return Object.assign({}, oldStore)
+
+  return messenger(message, userId, currentUser).then(_=>{
+    return Object.assign({}, oldStore,{
+      messages: message
+    })
   })
 }
 

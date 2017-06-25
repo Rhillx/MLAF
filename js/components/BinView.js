@@ -5,13 +5,16 @@ import { Container, Content, Card, CardItem, Body, Button, Icon, Right } from 'n
 
 export default class BinView extends Component {
 
+  openMessenger(){
+    
+  }
 
-	submitMessage(){
-        this.props.dispatch('SEND_MESSAGE',{
-            
-        })
-    }
-
+  // submitMessage() {
+  //   this.props.dispatch('SEND_MESSAGE',{
+  //       message: "testing",
+  //       userId: this.props.userId
+  //   })
+  // }
 
   render() {
 
