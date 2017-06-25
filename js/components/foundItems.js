@@ -26,7 +26,7 @@ componentDidMount(){
         <Container>
             <Content>
                 {this.props.foundItemsList.map((foundItem, i) => {
-                    return <BinView key={i} {...foundItem} dispatch={this.props.dispatch} />
+                    return <BinView key={i} {...foundItem} currentIdx={i} dispatch={this.props.dispatch} />
                 })}
             </Content>
         </Container>

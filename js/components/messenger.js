@@ -27,7 +27,7 @@ handleUserMessage(text){
 submitMessage(){
    this.props.dispatch('SEND_MESSAGE',{
             message: this.state.currentUserMessage,
-            userId: this.props.userId
+            userId: this.props.foundItemsList[this.props.viewInfo.index].userId
         })
     }
 

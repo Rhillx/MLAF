@@ -59,7 +59,16 @@ state = Store
              };
 
 
+    viewBinHandler(){
+        console.log('imhit');
+        this.props.dispatch('CHANGE_VIEW',{
+            viewNum: 3
+        })
+    }
+
+
  render (){
+        console.log(this.props);
      let currentModal = null;
     if (this.props.currentModalVal === 'found') {
         currentModal = <FoundItModal {...this.props} />
@@ -93,13 +102,13 @@ state = Store
 
                         <View style={styles.superContainer}>
                                     <GestureRecognizer onSwipeRight ={()=> this.onSwipeRight()}>
-                                    <Icon name='arrow-forward' style = {{marginTop: 100}}/>
+                                    <Icon name='arrow-forward' style={{marginTop: 100}}/>
                                     <Text>pull for menu</Text>
                                     </GestureRecognizer>
                             <View style={styles.container1}>
-                               
-                                    <Text style={style.viewBin}>View Bin</Text>
-                              
+                                <TouchableOpacity onPress={()=> this.viewBinHandler()}>
+                                    <Text style={styles.viewBin}>View Bin</Text>
+                                 </TouchableOpacity>
                             </View>
 
                             <View style={styles.container2}>
@@ -146,7 +155,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     viewBin: {
-        // fontSize: 30
+        fontSize: 30
     },
     foundItBtn:{
         // marginTop: 200,

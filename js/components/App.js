@@ -8,7 +8,7 @@ import FoundItModal from './foundItModal';
 import LostItModal from './lostItModal';
 import PickerExample from './picker';
 import BinView from './binView';
-import FoundItem from './lostItems';
+import FoundItem from './foundItems';
 import Messenger from './messenger';
 
 import {getMessageStream} from '../utils/firebase'
@@ -38,13 +38,18 @@ export default class App extends Component{
                 viewNum: ViewNames.OPTION_VIEW       
             })
         }
-
-        getMessageStream((snap) => {
-            console.log('snap value', snap.val())
-            alert('got something')
-        })
         
     };
+
+    componentWillReceiveProps(nextProps){
+        if (nextProps.currentUser && nextProps.currentUser !== this.props.currentUser) {
+            alert('here')
+            getMessageStream(nextProps.currentUser, (snap) => {
+                console.log('snap value', snap.val())
+                alert('got something')
+            });
+        }
+    }
 
 
 
@@ -56,7 +61,7 @@ export default class App extends Component{
                 return <LoginView {...this.props} />
             case ViewNames.OPTION_VIEW:
                 return <OptionView {...this.props} />
-            case ViewItems.FOUND_ITEMS_VIEW:
+            case ViewNames.FOUND_ITEMS_VIEW:
                 return <FoundItem {...this.props} />
             case ViewNames.MESSENGER:
                 return <Messenger {...this.props}  />      

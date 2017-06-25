@@ -38,6 +38,7 @@ export function readFoundItems(oldStore, extra){
     console.log("itemsLost", itemsFound)
     const foundItemsList = Object.keys(itemsFound).map(key=>{
       const data= itemsFound[key]
+      console.log('FOUND ITEM USER KEY', data.userId)
       return {
         // console.log(data.description, data.location.timestamp);
         description: data.description,
@@ -73,8 +74,9 @@ export function changeViewFunction(oldStore, options){
       return Promise.resolve().then(_ => {
          return Object.assign({}, oldStore, {
             currentView: options.viewNum,
-            modalVisible: options.modalVisible,
-            currentModalVal: options.currentModalVal,
+            viewInfo: options.viewInfo
+            // modalVisible: options.modalVisible,
+            // currentModalVal: options.currentModalVal
           })
       })
 };
@@ -138,7 +140,7 @@ export function sendMessage(oldStore, options){
 const {currentUser} = oldStore
 const {message, userId} = options
 
-
+console.log("BEFORE:", userId, currentUser)
   return messenger(message, userId, currentUser).then(_=>{
     return Object.assign({}, oldStore,{
       messages: message

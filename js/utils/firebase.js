@@ -129,16 +129,21 @@ console.log(message, userId, currentUser)
 if (currentUser === null) {
   currentUser = '111598038136172896479'
 }
- return db.ref('messages').child(currentUser).child(userId).push({
+ return db.ref('messages').child(userId).child(currentUser).push({
      message : message || null,
 })
 
 }
 
 
-export function getMessageStream(callback) {
-
-  db.ref('messages').on('value', callback)
+export function getMessageStream(currentUser, callback) {
+  db.ref('messages').child(currentUser).once('value').then(snap => {
+    const data = snap.val();
+    Object.keys(data).map(userId => {
+      db.ref('messages').child(currentUser).child(userId).on('child_added', callback)
+    })
+  })
+  db.ref('messages').child(currentUser).on('child_added', callback)
 }
 
 // UPDATE INFO DATA FUCNTIONS

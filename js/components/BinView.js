@@ -6,7 +6,12 @@ import { Container, Content, Card, CardItem, Body, Button, Icon, Right } from 'n
 export default class BinView extends Component {
 
   openMessenger(){
-    
+    this.props.dispatch('CHANGE_VIEW', {
+      viewNum: 4,
+      viewInfo: {
+        index: this.props.currentIdx,
+      }
+    })
   }
 
   // submitMessage() {
@@ -27,7 +32,7 @@ export default class BinView extends Component {
             </CardItem>
             <CardItem>
                  <Right>
-               <Button rounded onPress={()=> this.submitMessage()}>
+               <Button rounded onPress={()=> this.openMessenger()}>
                  <Icon name='paper-plane'/>
                </Button>
                  </Right>
