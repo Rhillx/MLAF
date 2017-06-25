@@ -18,7 +18,7 @@ componentDidMount(){
 
 
 
-    render(){
+    render(){ 
         
         console.log('listitems', this.props.foundItemsList)
 

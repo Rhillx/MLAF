@@ -49,6 +49,12 @@ export function createUser(name, email, id, photo) {
   })
 }
 
+export function getUser(userId) {
+  return db.ref('users').child(userId).once('value').then(snap => {
+    const user = snap.val();
+    return user.name;
+  })
+}
 
 
 
@@ -129,21 +135,45 @@ console.log(message, userId, currentUser)
 if (currentUser === null) {
   currentUser = '111598038136172896479'
 }
- return db.ref('messages').child(userId).child(currentUser).push({
+ const ref = db.ref('messages').child(userId).child(currentUser);
+ ref.child('time').set(Date.now());
+ const a = ref.child('messages').push({
      message : message || null,
-})
+     when: Date.now(),
+  })
 
+  const ref2 =  db.ref('messages').child(currentUser).child(userId);
+  ref2.child('time').set(Date.now())
+  const b = ref2.child('messages').push({
+     message : message || null,
+     when: Date.now(),   
+  })
+
+  const c = db.ref('lastMessage').child(currentUser).child(userId).set(Date.now());
+  const d = db.ref('lastMessage').child(userId).child(currentUser).set(Date.now());
+  return Promise.all([a,b,c,td])
 }
 
 
 export function getMessageStream(currentUser, callback) {
-  db.ref('messages').child(currentUser).once('value').then(snap => {
-    const data = snap.val();
-    Object.keys(data).map(userId => {
-      db.ref('messages').child(currentUser).child(userId).on('child_added', callback)
-    })
+  db.ref('lastMessage').child(currentUser).on('value', snap => {
+     console.log("HERE THO", Date.now())
+      db.ref('messages').child(currentUser).once('value').then(snap => callback(snap))
+   
+    // callback(snap)
   })
-  db.ref('messages').child(currentUser).on('child_added', callback)
+
+  // db.ref('messages').child(currentUser).once('value').then(snap => {
+  //   const data = snap.val();
+  //   console.log('datra is', data)
+  //   alert('in getMEssageStream')
+  //   Object.keys(data).map(userId => {
+  //     console.log('IN KEY LOOP')
+  //     console.log(userId, currentUser)
+  //     db.ref('messages').child(currentUser).child(userId).on('value', (snap) => callback(snap))
+  //   })
+  // })
+  // db.ref('messages').child(currentUser).on('child_added', )
 }
 
 // UPDATE INFO DATA FUCNTIONS

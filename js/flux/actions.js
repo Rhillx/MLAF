@@ -11,6 +11,8 @@ import{
     saveImage,
     sendMessage,
     recieveMessages,
+    handleNewMessage,
+    clearNewMessages,
 } from './reducers'
 
 export const actions ={
@@ -29,4 +31,6 @@ export const actions ={
     'GET_FOUND_ITEMS':(...args) => readFoundItems(...args),
     'SEND_MESSAGE':(...args)=> sendMessage(...args),
     'RECIEVE_MESSAGES':(...args)=> recieveMessages(...args),
+    "NEW_MESSAGE": (...args) => handleNewMessage(...args),
+    "CLEAR_MESSAGES": (...args) => clearNewMessages(...args),
 }

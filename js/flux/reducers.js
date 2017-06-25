@@ -5,6 +5,7 @@ import {
   getFoundItems,
   messenger,
   getMessages,
+  getUser,
 } from '../utils/firebase';
 import {signInWithGoogleAsync, facebookLogIn} from '../auth';
 import {getLocationAsync} from '../utils/expo';
@@ -110,6 +111,32 @@ export function getLocation(oldStore){
 })
 }
 
+export function handleNewMessage(store, options) {
+  console.log('handleMessage options', options)
+  const sorted = Object.keys(options.data || {}).map(key => {
+    const d = options.data[key]
+    d.userId = key;
+    return getUser(key).then(user => {
+      d.user = user;
+      return d;
+    })
+  });
+
+  return Promise.all(sorted).then(([...threads]) => {
+    threads.sort((a,b) => a.time < b.time ? 1 : -1);
+    console.log('sorted is....', threads)
+    return Object.assign({}, store, {
+      newMessage: threads,
+    })
+  })
+}
+
+export function clearNewMessages(store, options) {
+  return Promise.resolve().then(_ => Object.assign({}, store, {
+    newMessage: null,
+  }))
+}
+
 // //GET IMAGE URI
 //   export async function pickImageAsync(){
 //     let result = await ImagePicker.launchImageLibraryAsync({
@@ -141,10 +168,10 @@ const {currentUser} = oldStore
 const {message, userId} = options
 
 console.log("BEFORE:", userId, currentUser)
-  return messenger(message, userId, currentUser).then(_=>{
-    return Object.assign({}, oldStore,{
-      messages: message
-    })
+  messenger(message, userId, currentUser);
+  
+  return Promise.resolve().then(_=>{
+    return Object.assign({}, oldStore)
   })
 }
 

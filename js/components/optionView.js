@@ -18,6 +18,8 @@ import Store from '../flux/Store'
 import FoundItModal from './foundItModal';
 import LostItModal from './lostItModal';
 
+import NewMessage from './NewMessage';
+
 
 
 
@@ -99,6 +101,7 @@ state = Store
                             <Text>GO BACK</Text>
                        </Button>
                         </Modal>
+                        <NewMessage {...this.props} />
 
                         <View style={styles.superContainer}>
                                     <GestureRecognizer onSwipeRight ={()=> this.onSwipeRight()}>

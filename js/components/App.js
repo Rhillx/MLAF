@@ -10,6 +10,7 @@ import PickerExample from './picker';
 import BinView from './binView';
 import FoundItem from './foundItems';
 import Messenger from './messenger';
+import Inbox from './Inbox';
 
 import {getMessageStream} from '../utils/firebase'
 
@@ -19,7 +20,7 @@ import {getMessageStream} from '../utils/firebase'
 import {ViewNames} from '../flux/Store';
 
 export default class App extends Component{
-
+    watchInit = false
     componentWillMount() {
     if (Platform.OS === 'android' && !Constants.isDevice) {
       return
@@ -42,11 +43,14 @@ export default class App extends Component{
     };
 
     componentWillReceiveProps(nextProps){
-        if (nextProps.currentUser && nextProps.currentUser !== this.props.currentUser) {
-            alert('here')
+        if (nextProps.currentUser && nextProps.currentUser !== this.props.currentUser && !this.watchInit ) {
+            console.log("INITING THID FUCKER")
+            this.watchInit = true;
             getMessageStream(nextProps.currentUser, (snap) => {
-                console.log('snap value', snap.val())
-                alert('got something')
+                console.log('currentuser', nextProps.currentUser)
+                this.props.dispatch('NEW_MESSAGE', {
+                    data: snap.val()
+                })
             });
         }
     }
@@ -64,7 +68,9 @@ export default class App extends Component{
             case ViewNames.FOUND_ITEMS_VIEW:
                 return <FoundItem {...this.props} />
             case ViewNames.MESSENGER:
-                return <Messenger {...this.props}  />      
+                return <Messenger {...this.props}  />  
+            case ViewNames.INBOX:
+                return <Inbox {...this.props} />    
             default:
                 return <LoginView {...this.props} />
         }

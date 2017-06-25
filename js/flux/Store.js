@@ -3,6 +3,7 @@ export const ViewNames = {
     OPTION_VIEW: 2,
     FOUND_ITEMS_VIEW: 3,
     MESSENGER: 4,
+    INBOX: 5,
 }
 export const Store = {
     foundItemsList: [],
@@ -19,7 +20,8 @@ export const Store = {
     currentModal: null,
     currentModalVal: null,
     modalVisible: false,
-    messages:[]
+    messages:[],
+    newMessage: null,
 
 }
 /*THIS IS currentView initial Val

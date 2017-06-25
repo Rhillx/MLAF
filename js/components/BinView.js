@@ -10,6 +10,7 @@ export default class BinView extends Component {
       viewNum: 4,
       viewInfo: {
         index: this.props.currentIdx,
+        key: 'foundItemsList'
       }
     })
   }
