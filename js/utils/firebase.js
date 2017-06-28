@@ -35,6 +35,14 @@ export function createUser(name, email, id, photo) {
   });
 } 
 
+export function createFbUser(name, id){
+
+  db.ref('users').child(id).set({
+    id: id,
+    name:name
+  })
+}
+
 
  export function createFoundItem(image, description, location, userId){
    console.log(image, description)
@@ -151,7 +159,7 @@ if (currentUser === null) {
 
   const c = db.ref('lastMessage').child(currentUser).child(userId).set(Date.now());
   const d = db.ref('lastMessage').child(userId).child(currentUser).set(Date.now());
-  return Promise.all([a,b,c,td])
+  return Promise.all([a,b,c,])
 }
 
 

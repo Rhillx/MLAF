@@ -55,6 +55,9 @@ this.setState({
 		return(
 
                  <KeyboardAvoidingView behavior='padding' style={styles.container}>
+                       <Button style = {{backgroundColor: '#096480'}} onPress={()=>{this.closeModal()}}>
+                            <Text>GO BACK</Text>
+                       </Button>
                      <Item rounded style={styles.inputBox}>
                          <Input placeholder='Type Message..' 
                          onChangeText={(text)=> this.handleUserMessage(text)}

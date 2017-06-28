@@ -1,5 +1,6 @@
 import {
   createUser, 
+  createFbUser,
   createFoundItem, 
   createLostItem,
   getFoundItems,
@@ -75,8 +76,8 @@ export function changeViewFunction(oldStore, options){
       return Promise.resolve().then(_ => {
          return Object.assign({}, oldStore, {
             currentView: options.viewNum,
-            viewInfo: options.viewInfo
-            // modalVisible: options.modalVisible,
+            viewInfo: options.viewInfo,
+            modalVisible: options.makeVisible
             // currentModalVal: options.currentModalVal
           })
       })
@@ -99,12 +100,34 @@ export function loginWithGoogle(oldStore){
     // return Promise.resolve().then(_ => oldStore);
 };
 
+// FACEBOOK AUTH && PUSH TO DB
+
+export function loginWithFacebook(oldStore){
+  return facebookLogIn().then((response) =>{
+    const data = response.json();
+
+    data.then((cred)=>{
+      console.log('id is',cred.id);
+      console.log('name is', cred.name);
+      createFbUser(cred.name, cred.id);
+
+      return Object.assign({}, oldStore, {
+        currentUser: cred.id,
+        currentUserName: cred.name,
+        currentView: ViewNames.OPTION_VIEW,
+      })
+
+    })
+   
+
+  })
+}
+
 
 
 // GET USER LOCATION
 export function getLocation(oldStore){
  return getLocationAsync().then((location) =>{
-    console.log('reducer location' , location.coords.longitude)
      return Object.assign({}, oldStore, {
        location: location
   })

@@ -48,6 +48,14 @@ state = Store
     })
   }
 
+  closeModal(){
+      console.log('trying to close');
+      this.props.dispatch('CHANGE_VIEW', {
+          viewNum: 2,
+          makeVisible: false
+      })
+  }
+
 
 
   
@@ -92,12 +100,12 @@ state = Store
                          animationType={"fade"}
                           transparent={false}
                           visible={this.props.modalVisible}
-                          onRequestClose={this.props.modalVisible}
+                          onRequestClose={()=>this.closeModal()}
                           >
 
                         {currentModal}
                      
-                         <Button style = {{backgroundColor: '#096480'}}>
+                         <Button style = {{backgroundColor: '#096480'}} onPress={()=>{this.closeModal()}}>
                             <Text>GO BACK</Text>
                        </Button>
                         </Modal>

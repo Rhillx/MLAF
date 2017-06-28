@@ -10,7 +10,7 @@ export async function getLocationAsync(){
     }
 
     let location = await Location.getCurrentPositionAsync({});
-  console.log('location is', location.coords.latitude);
-  return location
+
+  return location;
   };
 

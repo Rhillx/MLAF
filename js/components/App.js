@@ -33,6 +33,7 @@ export default class App extends Component{
 
 
     componentDidMount(){
+        console.log(this.props);
         const {currentUser} = this.props
         if(currentUser != null){
             this.props.dispatch('CHANGE_VIEW', {
@@ -59,7 +60,7 @@ export default class App extends Component{
 
 
     render(){
-        console.log('render', this.props.currentView, ViewNames)
+        console.log('render this', this.props)
         switch (this.props.currentView) {
             case ViewNames.LOGIN_VIEW:
                 return <LoginView {...this.props} />
