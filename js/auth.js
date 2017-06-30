@@ -1,7 +1,7 @@
 import Expo from 'expo';
 
 
-
+// GOOGLE AUTH
 
 export async function signInWithGoogleAsync() {
   try {
@@ -24,13 +24,12 @@ export async function signInWithGoogleAsync() {
 
 export async function facebookLogIn() {
   const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('1333363216699399', {
-      permissions: ['public_profile']
+      permissions: ['public_profile','email']
     });
   if (type === 'success') {
-    // Get the user's name using Facebook's Graph API
     const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
 
-    return response
- 
+    return response;
   }
 }
+ 

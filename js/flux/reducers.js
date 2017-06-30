@@ -14,6 +14,60 @@ import {ViewNames} from './Store';
 import {_pickImage} from '../components/imagePicker';
 
 
+// GOOGLE AUTH && PUSH TO DATABASE
+
+export function loginWithGoogle(oldStore){
+   return signInWithGoogleAsync().then((result) => {
+    const {name, email, id, photoUrl} = result.user;
+     createUser(name, email, id, photoUrl)
+      return Object.assign({}, oldStore, {
+        currentUser: id,
+        currentUserName: name,
+        currentView: ViewNames.OPTION_VIEW,
+      })
+  })
+};
+
+// FACEBOOK AUTH && PUSH TO DB
+
+export function loginWithFacebook(oldStore){
+  return facebookLogIn().then((response) =>{
+    return response.json()
+    .then(json =>{
+      const {name, id} = json;
+      createFbUser(name, id);
+       return Object.assign({}, oldStore, {
+        currentUser: id,
+        currentUserName: name,
+        currentView: ViewNames.OPTION_VIEW,
+       })
+     })
+  })
+}
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // DB FUCNTIONS
 
 export function postFoundItem(oldStore, extra){
@@ -83,45 +137,6 @@ export function changeViewFunction(oldStore, options){
       })
 };
 
-// GOOGLE AUTH && PUSH TO DATABASE
-
-export function loginWithGoogle(oldStore){
-   return signInWithGoogleAsync().then((result) => {
-    const {name, email, id, photoUrl} = result.user;
-
-   createUser(name, email, id, photoUrl)
-
-      return Object.assign({}, oldStore, {
-        currentUser: id,
-        currentUserName: name,
-        currentView: ViewNames.OPTION_VIEW,
-      })
-     })
-    // return Promise.resolve().then(_ => oldStore);
-};
-
-// FACEBOOK AUTH && PUSH TO DB
-
-export function loginWithFacebook(oldStore){
-  return facebookLogIn().then((response) =>{
-    const data = response.json();
-
-    data.then((cred)=>{
-      console.log('id is',cred.id);
-      console.log('name is', cred.name);
-      createFbUser(cred.name, cred.id);
-
-      return Object.assign({}, oldStore, {
-        currentUser: cred.id,
-        currentUserName: cred.name,
-        currentView: ViewNames.OPTION_VIEW,
-      })
-
-    })
-   
-
-  })
-}
 
 
 

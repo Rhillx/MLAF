@@ -7,13 +7,6 @@ export const ViewNames = {
 }
 export const Store = {
     foundItemsList: [],
-
-    users: {
-        id:'',
-        image:'',
-        email:'',
-        name:'',
-    },
     currentView: ViewNames.LOGIN_VIEW,
     currentUser: null,
     currentUserName: null,
@@ -24,6 +17,3 @@ export const Store = {
     newMessage: null,
 
 }
-/*THIS IS currentView initial Val
-*/
-// ViewNames.LOGIN_VIEW
