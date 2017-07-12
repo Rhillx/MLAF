@@ -14,6 +14,7 @@ import{
     recieveMessages,
     handleNewMessage,
     clearNewMessages,
+    openCam,
 } from './reducers'
 
 export const actions ={
@@ -34,4 +35,5 @@ export const actions ={
     'RECIEVE_MESSAGES':(...args)=> recieveMessages(...args),
     "NEW_MESSAGE": (...args) => handleNewMessage(...args),
     "CLEAR_MESSAGES": (...args) => clearNewMessages(...args),
+    'OPEN_CAM': (...args) => openCam(...args),
 }

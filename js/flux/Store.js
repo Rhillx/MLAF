@@ -15,5 +15,6 @@ export const Store = {
     modalVisible: false,
     messages:[],
     newMessage: null,
+    image: null,
 
 }

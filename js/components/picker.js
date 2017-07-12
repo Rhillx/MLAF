@@ -1,60 +1,68 @@
 import React, { Component } from 'react';
-import { Container, Content, Picker, Input } from 'native-base';
-import {View} from 'react-native';
+import { Container, Content, Picker, Input, Item } from 'native-base';
 
 
-
-
-
-const Item = Picker.Item;
+const Pick = Picker.Item;
 export default class PickerExample extends Component {
-   
-    state = {
-            selectedItem: undefined,
-            selected1: 'key0',
-            results: {
-                items: []
-            },
-            // textboxVisible: false,
-        }
-    
-    onValueChange (value: string) {
+ 
+   state = {
+       editable: false,
+      selected: 'key1',
+      results: {
+        items: []
+      }
+    }
+
+  onValueChange (value: string) {
+    this.setState({
+      selected : value
+    });
+    if(this.state.selected != 'other'){
+        this.state.editable
+    }else{
         this.setState({
-            selected1 : value
-        });
+            editable: true
+        })
     }
 
-//    setTextBoxVisible(visible){
-//        if(this.state.selected1 === 'key5'){
-//            this.setState({textboxVisible: visible})
-//        }
-//    }
-
-
-
-    render() {
-  
-        return (
-                    <View style= {{marginTop: 100}}>
-                    <Picker 
-                        supportedOrientations={['portrait','landscape']}
-                        mode="dropdown"
-                        selectedValue={this.state.selected1}
-                        onValueChange={this.onValueChange.bind(this)}
-                        >
-                        <Item label="Select One" value="key0" />
-                        <Item label="Keys" value="key1" />
-                        <Item label="Clothing" value="key2" />
-                        <Item label="Bag/Purse" value="key3" />
-                        <Item label="Wallet" value="key4" />
-                        <Item label="Other" value="key5" />
-                   </Picker>
-                        <Item regular>
-                        <Input placeholder='please enter item..'/>
-                        </Item>
-                   </View>
-        
-        
-        );
-    }
 }
+ 
+
+  
+    
+  
+
+
+  render() {
+
+    return (
+      <Container>
+        <Content>
+          <Picker
+            supportedOrientations={['portrait','landscape']}
+            iosHeader="Select one"
+            headerBackButtonText="Go Back"
+            mode="dialog"
+            selectedValue={this.state.selected}
+            onValueChange={this.onValueChange.bind(this)}>
+            <Pick label="Wallet" value="key0" />
+            <Pick label="Keys" value="key1" />
+            <Pick label="Clothing" value="key2" />
+            <Pick label="Jewlery" value="key3" />
+            <Pick label="Bag/Purse" value="key4" />
+            <Pick label="Phone" value="key5" />
+            <Pick label="Umbrella" value="key6" />
+            <Pick label="Other.." value="other" />
+         </Picker>
+
+          <Item regular>
+            <Input placeholder='Please enter type if Other....'
+                    editable={this.state.editable} />
+          </Item>
+
+        </Content>
+      </Container>
+    );
+  }
+}
+

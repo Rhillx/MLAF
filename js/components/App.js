@@ -11,6 +11,7 @@ import BinView from './binView';
 import FoundItem from './foundItems';
 import Messenger from './messenger';
 import Inbox from './Inbox';
+import ImageSelector from './imagePicker';
 
 import {getMessageStream} from '../utils/firebase'
 
@@ -33,11 +34,11 @@ export default class App extends Component{
 
 
     componentDidMount(){
-        console.log(this.props);
+        // console.log(this.props);
         const {currentUser} = this.props
         if(currentUser != null){
             this.props.dispatch('CHANGE_VIEW', {
-                viewNum: ViewNames.OPTION_VIEW       
+                // viewNum: ViewNames.OPTION_VIEW       
             })
         }
         
@@ -61,22 +62,22 @@ export default class App extends Component{
 
     render(){
         console.log('render this', this.props)
-        switch (this.props.currentView) {
-            case ViewNames.LOGIN_VIEW:
-                return <LoginView {...this.props} />
-            case ViewNames.OPTION_VIEW:
-                return <OptionView {...this.props} />
-            case ViewNames.FOUND_ITEMS_VIEW:
-                return <FoundItem {...this.props} />
-            case ViewNames.MESSENGER:
-                return <Messenger {...this.props}  />  
-            case ViewNames.INBOX:
-                return <Inbox {...this.props} />    
-            default:
-                return <LoginView {...this.props} />
-        }
+        // switch (this.props.currentView) {
+        //     case ViewNames.LOGIN_VIEW:
+        //         return <LoginView {...this.props} />
+        //     case ViewNames.OPTION_VIEW:
+        //         return <OptionView {...this.props} />
+        //     case ViewNames.FOUND_ITEMS_VIEW:
+        //         return <FoundItem {...this.props} />
+        //     case ViewNames.MESSENGER:
+        //         return <Messenger {...this.props}  />  
+        //     case ViewNames.INBOX:
+        //         return <Inbox {...this.props} />    
+        //     default:
+        //         return <LoginView {...this.props} />
+        // }
         return(
-         <this.props.currentView {...this.props} /> 
+         <ImageSelector {...this.props} /> 
         )
     }
 }

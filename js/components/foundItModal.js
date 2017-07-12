@@ -5,16 +5,24 @@ import ImageSelector from './imagePicker';
 import PickerExample from './picker';
 
 
+
 export default class FoundItModal extends Component {
 
 state = {
     description: "",
+    note: "",
     image: "",
 }
 
 handleDescription(text){
     this.setState({
         description: text
+    })
+}
+
+handleNote(text){
+    this.setState({
+        note: text
     })
 }
 
@@ -30,6 +38,7 @@ submit(){
 
     this.props.dispatch('POST_FOUND_ITEM', {
         description: this.state.description,
+        note: this.state.note,
         image: this.state.image,
         viewNum: 2,
         modalVisible: false,
@@ -48,11 +57,16 @@ submit(){
                     </View> 
                   
                     <Item regular style ={{marginLeft: 20, marginRight: 20, marginTop: 40}}>
-                        <Input placeholder= 'Description..' 
+                        <Input placeholder= 'Please tell us what you found....' 
                                value={this.state.description}
                                onChangeText={(text) => this.handleDescription(text)}/>
                     </Item>
-                    <Button iconLeft rounded success style={{marginLeft:120, marginTop: 200}}
+                    <Item regular style ={{marginLeft: 20, marginRight: 20, marginTop: 40}}>
+                        <Input placeholder= 'Leave a note (optional)....' 
+                               value={this.state.note}
+                               onChangeText={(text) => this.handleNote(text)}/>
+                    </Item>
+                    <Button iconLeft rounded success style={{marginLeft:120}}
                     onPress={() => this.submit()}
                     >
                         <Icon name='eye'/>

@@ -1,60 +1,48 @@
-/*import React, { Component } from 'react';
-import {
-  AppRegistry,
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View
-} from 'react-native';
-import Camera from 'react-native-camera';
+import React from 'react';
+import { Button, Image, View } from 'react-native';
+import { ImagePicker } from 'expo';
+
+export default class ImagePickerExample extends React.Component {
+  state = {
+    image: null,
+  };
 
 
-class BadInstagramCloneApp extends Component {
-
-  takePicture() {
-    const options = {};
-    //options.location = ... 
-    this.camera.capture({metadata: options})
-      .then((data) => console.log(data))
-      .catch(err => console.error(err));
+  componentDidMount(){
+    this.props.dispatch('OPEN_CAM',{
+    })
   }
- 
+
+
   render() {
+    let { image } = this.props;
+
+    
+
     return (
-      <View style={styles.container}>
-        <Camera
-          ref={(cam) => {
-            this.camera = cam;
-          }}
-          style={styles.preview}
-          >
-          <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
-        </Camera>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Button
+          title="Pick an image from camera roll"
+          onPress={this._pickImage}
+        />
+        {image &&
+          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
       </View>
     );
   }
-}
- 
- 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-  preview: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center'
-  },
-  capture: {
-    flex: 0,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    color: '#000',
-    padding: 10,
-    margin: 40
-  }
-});
 
-AppRegistry.registerComponent('BadInstagramCloneApp', () => BadInstagramCloneApp);*/
+  
+
+//    _pickImage = async () => {
+//     let result = await ImagePicker.launchImageLibraryAsync({
+//       allowsEditing: true,
+//       aspect: [4, 3],
+//     });
+
+//     console.log(result);
+
+//     if (!result.cancelled) {
+//       this.setState({ image: result.uri });
+//     }
+//   };
+}

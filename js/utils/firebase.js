@@ -23,7 +23,7 @@ const db = Firebase.database();
 
 
 
-// CREATE DATA FUNCTIONS
+// CREATE DB FUNCTIONS
 
 export function createUser(name, email, id, photo) {
 
@@ -44,27 +44,19 @@ export function createFbUser(name, id){
 }
 
 
- export function createFoundItem(image, description, location, userId){
+ export function createFoundItem(image, description, location, note, userId){
    console.log(image, description)
   const key = db.ref('foundItems').push().key;
   // return Promise.resolve().then()
   return db.ref('foundItems').child(key).set({
     image: image,
     description: description,
+    note: note,
     location: location,
     userId: userId,
     thekey: key
-  })
-}
-
-export function getUser(userId) {
-  return db.ref('users').child(userId).once('value').then(snap => {
-    const user = snap.val();
-    return user.name;
-  })
-}
-
-
+  });
+};
 
 export function createLostItem(image, description, location, userId){
    console.log(image, description)
@@ -76,9 +68,18 @@ export function createLostItem(image, description, location, userId){
     location: location,
     userId: userId,
     thekey: key
+  });
+};
+
+
+
+
+export function getUser(userId) {
+  return db.ref('users').child(userId).once('value').then(snap => {
+    const user = snap.val();
+    return user.name;
   })
 }
-
 // GET DATA FUNCTIONS..PROMISES
 
 

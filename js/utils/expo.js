@@ -1,4 +1,4 @@
-import {Expo, Constants, Location, Permissions} from 'expo';
+import {Expo, Constants, Location, Permissions, ImagePicker} from 'expo';
 
 
 
@@ -12,5 +12,16 @@ export async function getLocationAsync(){
     let location = await Location.getCurrentPositionAsync({});
 
   return location;
-  };
+};
+
+export async function takePhotoAsync(){
+  let result = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+      base64: true
+    });
+  if (!result.cancelled) {
+     return result
+  }
+};
 

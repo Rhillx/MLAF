@@ -9,9 +9,9 @@ import {
   getUser,
 } from '../utils/firebase';
 import {signInWithGoogleAsync, facebookLogIn} from '../auth';
-import {getLocationAsync} from '../utils/expo';
+import {getLocationAsync, takePhotoAsync} from '../utils/expo';
 import {ViewNames} from './Store';
-import {_pickImage} from '../components/imagePicker';
+
 
 
 // GOOGLE AUTH && PUSH TO DATABASE
@@ -45,7 +45,16 @@ export function loginWithFacebook(oldStore){
   })
 }
 
+// OPEN CAMERA
 
+export function openCam(oldStore){
+  return takePhotoAsync().then((result)=>{
+    console.log('result for image is....', result)
+    return Object.assign({}, oldStore,{
+      image: result.uri
+    })
+  })
+}
 
    
 
@@ -71,9 +80,9 @@ export function loginWithFacebook(oldStore){
 // DB FUCNTIONS
 
 export function postFoundItem(oldStore, extra){
-  const {image, description} = extra;
+  const {image, description, note} = extra;
   const {location, currentUser} = oldStore;
-  return createFoundItem(image, description, location, currentUser).then(_ => {
+  return createFoundItem(image, description, location, note, currentUser).then(_ => {
     return Object.assign({}, oldStore)
   });
 }
